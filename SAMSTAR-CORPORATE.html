@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAMSTAR CORPORATE</title>
+<style>
+:root{--cyan:#00b8d4;--dark:#006978;--blue:#0277bd;--line:#cfe9f1;--text:#0d2b33;--muted:#5b7a84;--green:#00875a;--red:#c62828}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#f3fbfd;color:var(--text);min-height:100vh}
+header{position:sticky;top:0;z-index:30;background:linear-gradient(90deg,var(--dark),var(--cyan));color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:10px;background:#fff;color:var(--dark);display:grid;place-items:center;font-weight:900}
+h1{margin:0;font-size:18px}.sub{font-size:10.5px;opacity:.9}
+#status{font-size:11px;background:rgba(255,255,255,.18);padding:6px 10px;border-radius:999px}
+main{max-width:1000px;margin:auto;padding:14px 12px 45px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 6px 18px rgba(2,119,189,.07);animation:rise .4s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h2{margin:0 0 12px;font-size:16px;color:var(--dark)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px;text-transform:uppercase}
+input,select,textarea{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;background:#fbfeff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,184,212,.14)}
+textarea{min-height:78px;resize:vertical}
+button{border:0;border-radius:10px;padding:12px 14px;font-size:14px;font-weight:800;cursor:pointer}
+button:active{transform:scale(.98)}
+.primary{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#fff}
+.ghost{background:#eafaff;color:var(--dark);border:1px solid var(--line)}
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.tot{padding:12px;border-radius:12px;background:#f2fbfd;border:1px solid var(--line);text-align:center}
+.tot.exp{background:#fff5f5}.tot span{font-size:11px;color:var(--muted);font-weight:800}.tot b{display:block;font-size:17px;margin-top:3px}
+.tot.in b{color:var(--green)}.tot.exp b{color:var(--red)}.tot.net b{color:var(--blue)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:10px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:620px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#eafaff;color:var(--dark);font-size:11px;text-transform:uppercase}
+tbody tr:hover{background:#f4fdff}
+.badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800}
+.badge.in{background:#e3f5ec;color:var(--green)}.badge.out{background:#fdecec;color:var(--red)}
+.amount-in{color:var(--green);font-weight:800}.amount-out{color:var(--red);font-weight:800}
+.del{background:none;color:var(--red);font-size:16px;padding:3px 6px;border-radius:7px}
+.empty{color:var(--muted);text-align:center;padding:18px}
+.note{font-size:11.5px;color:var(--muted);margin:9px 0 0;line-height:1.5}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
+#usbStatus{font-size:12px;padding:9px 11px;border-radius:10px;background:#eafaff;border:1px solid var(--line);margin-bottom:10px}
+#errorBox{display:none;background:#fdecec;border:1px solid #f5b5b5;color:#8b1a1a;border-radius:10px;padding:10px;margin-bottom:10px;font-size:12px;white-space:pre-wrap}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);background:#006978;color:#fff;padding:12px 18px;border-radius:999px;font-weight:700;opacity:0;transition:.3s;z-index:99;max-width:90%;text-align:center}
+.services{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{background:#eafaff;border:1px solid var(--line);color:var(--dark);padding:5px 9px;border-radius:999px;font-size:11px;font-weight:700}
+.modal{position:fixed;inset:0;background:rgba(4,38,46,.6);display:none;align-items:center;justify-content:center;padding:14px;z-index:60}
+.modal.open{display:flex}
+.modal-box{background:#fff;border-radius:16px;width:min(1000px,96vw);height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.close{background:#eafaff;color:var(--dark);border-radius:9px;padding:8px 12px}
+#pdfFrame{flex:1;border:0;width:100%}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">S</div><div><h1>SAMSTAR CORPORATE</h1><div class="sub">Bureautique • Photocopie • Tirage • Saisie • E-commerce • Informatique • Crédit MTN, MOOV, Celtis</div></div></div><div id="status">Prêt</div></header>
+<main>
+<div id="errorBox"></div>
+<div class="card"><h2>Identité de l’entreprise</h2>
+<div class="grid"><div><label>Nom</label><input id="bizName" value="SAMSTAR CORPORATE"></div><div><label>Téléphone</label><input id="bizPhone" placeholder="Téléphone"></div><div><label>Adresse</label><input id="bizAddress" placeholder="Adresse"></div></div>
+<div class="services"><span class="chip">Bureautique</span><span class="chip">Photocopie</span><span class="chip">Tirage</span><span class="chip">Saisie</span><span class="chip">E-commerce</span><span class="chip">Matériel informatique</span><span class="chip">Crédit MTN</span><span class="chip">Crédit MOOV</span><span class="chip">Crédit Celtis</span></div>
+<button class="ghost" style="margin-top:10px" onclick="saveBusiness()">💾 Enregistrer</button></div>
+
+<div class="card"><h2>Clé USB</h2><div id="usbStatus">Aucun dossier sélectionné.</div>
+<div class="actions"><button class="primary" onclick="chooseUSB()">📂 Choisir le dossier de ma clé USB</button><button class="ghost" onclick="testUSB()">🧪 Tester l’accès</button></div>
+<p class="note">Avec Edge sur ordinateur, sélectionnez directement la racine de la clé USB, par exemple <b>SANDISK (E:)</b>.</p></div>
+
+<div class="card"><h2>Journal du jour</h2>
+<div class="filters"><div><label>Date affichée</label><input id="day" type="date" onchange="setDay()"></div><div><label>Recherche</label><input id="q" placeholder="Rechercher…" oninput="render()"></div></div>
+<div class="totals"><div class="tot in"><span>Recettes</span><b id="tIn">0 FCFA</b></div><div class="tot exp"><span>Dépenses</span><b id="tOut">0 FCFA</b></div><div class="tot net"><span>Solde</span><b id="tNet">0 FCFA</b></div></div></div>
+
+<div class="card"><h2>Nouvelle opération</h2>
+<div class="grid"><div><label>Date</label><input id="date" type="date"></div><div><label>Type</label><select id="type"><option value="recette">Recette / commande</option><option value="depense">Dépense</option></select></div><div><label>Client / fournisseur</label><input id="party"></div><div><label>Montant (FCFA)</label><input id="amount" type="number" min="0" step="1"></div></div>
+<label style="margin-top:10px">Articles et quantités</label><textarea id="items" placeholder="Photocopie A4 x 50&#10;Tirage A3 x 10&#10;Crédit MTN 1000 FCFA x 5"></textarea>
+<label style="margin-top:10px">Note</label><input id="note">
+<button class="primary" style="width:100%;margin-top:12px" onclick="saveEntry()">＋ Enregistrer</button></div>
+
+<div class="card"><h2>Opérations du jour</h2>
+<div class="table-wrap"><table><thead><tr><th>Type</th><th>Client / Fournisseur</th><th>Articles et quantités</th><th>Note</th><th style="text-align:right">Montant</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+<p class="empty" id="empty">Aucune opération pour cette date.</p></div>
+
+<div class="card"><h2>Export PDF par période</h2>
+<div class="filters"><div><label>Du</label><input id="pdfFrom" type="date"></div><div><label>Au</label><input id="pdfTo" type="date"></div></div>
+<button class="primary" style="width:100%" onclick="exportPDF()">📄 Exporter et afficher le PDF</button>
+<div class="actions"><button class="ghost" onclick="backupNow(true)">🗄️ Sauvegarder sur la clé</button><button class="ghost" onclick="document.getElementById('importFile').click()">♻️ Restaurer</button></div>
+<input id="importFile" type="file" accept=".json" style="display:none" onchange="importJSON(this)">
+<p class="note">Le PDF s’affiche dans l’application, puis est enregistré dans <b>export</b> sur la clé USB.</p></div>
+</main>
+<div class="modal" id="pdfModal"><div class="modal-box"><div class="modal-head"><h2 style="margin:0;font-size:16px;color:var(--dark)">📄 Aperçu du PDF</h2><button class="close" onclick="closePDF()">Fermer</button></div><iframe id="pdfFrame"></iframe></div></div>
+<div id="toast"></div>
+<script>
+const KEY='samstar_data_v5',BKEY='samstar_business_v1',DB='samstar_usb_db',STORE='handles';
+let entries=[],usbDir=null,pdfUrl=null;
+try{entries=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){entries=[]}
+if(!Array.isArray(entries))entries=[];
+const today=new Date().toISOString().slice(0,10);
+document.getElementById('day').value=today;document.getElementById('date').value=today;
+const biz=JSON.parse(localStorage.getItem(BKEY)||'null')||{name:'SAMSTAR CORPORATE',phone:'',address:''};
+document.getElementById('bizName').value=biz.name;document.getElementById('bizPhone').value=biz.phone;document.getElementById('bizAddress').value=biz.address;
+function showError(e){const b=document.getElementById('errorBox');b.style.display='block';b.textContent='Erreur : '+(e&&e.message?e.message:e)+'\\n\\n'+(e&&e.stack?e.stack:'');console.error(e)}
+window.addEventListener('error',ev=>showError(ev.error||ev.message));
+window.addEventListener('unhandledrejection',ev=>showError(ev.reason));
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.opacity=1;t.style.transform='translateX(-50%) translateY(0)';clearTimeout(t._h);t._h=setTimeout(()=>{t.style.opacity=0;t.style.transform='translateX(-50%) translateY(80px)'},3500)}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(entries))}catch(e){toast('Mémoire locale pleine.')}}
+function saveBusiness(){biz.name=document.getElementById('bizName').value.trim()||'SAMSTAR CORPORATE';biz.phone=document.getElementById('bizPhone').value.trim();biz.address=document.getElementById('bizAddress').value.trim();localStorage.setItem(BKEY,JSON.stringify(biz));toast('Informations enregistrées.')}
+function fmt(n){return Number(n||0).toLocaleString('fr-FR')+' FCFA'}
+function setDay(){document.getElementById('date').value=document.getElementById('day').value;render()}
+function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function saveHandle(h){try{const db=await openDB();const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(h,'usb')}catch(e){console.warn(e)}}
+async function loadHandle(){try{const db=await openDB();return await new Promise((res,rej)=>{const rq=db.transaction(STORE,'readonly').objectStore(STORE).get('usb');rq.onsuccess=()=>res(rq.result);rq.onerror=rej})}catch(e){return null}}
+(async()=>{try{const h=await loadHandle();if(!h)return;if(await h.queryPermission({mode:'readwrite'})==='granted'){usbDir=h;document.getElementById('usbStatus').textContent='Clé USB connectée : '+h.name}else{document.getElementById('usbStatus').textContent='Dossier précédent détecté. Cliquez sur « Choisir le dossier ».'}}catch(e){console.warn(e)}})();
+async function chooseUSB(){try{if(!window.showDirectoryPicker)throw new Error('Utilisez Microsoft Edge ou Chrome sur ordinateur.');usbDir=await window.showDirectoryPicker({mode:'readwrite'});await saveHandle(usbDir);document.getElementById('usbStatus').textContent='Clé USB connectée : '+usbDir.name;toast('Dossier sélectionné : '+usbDir.name)}catch(e){if(e&&e.name==='AbortError'){toast('Sélection annulée.');return}showError(e)}}
+async function testUSB(){try{if(!usbDir)throw new Error('Choisissez d’abord le dossier de la clé USB.');if(await usbDir.queryPermission({mode:'readwrite'})!=='granted')throw new Error('Autorisation refusée.');const f=await usbDir.getFileHandle('samstar-test.txt',{create:true});const w=await f.createWritable();await w.write('SAMSTAR CORPORATE');await w.close();toast('Accès confirmé. Fichier samstar-test.txt créé.')}catch(e){showError(e)}}
+async function backupNow(a){try{persist();if(!usbDir){if(a)toast('Choisissez d’abord le dossier de la clé USB.');return}if(await usbDir.queryPermission({mode:'readwrite'})!=='granted'){if(a)toast('Autorisation nécessaire.');return}const f=await usbDir.getFileHandle('samstar-sauvegarde.json',{create:true});const w=await f.createWritable();await w.write(JSON.stringify(entries,null,2));await w.close();if(a)toast('Sauvegarde enregistrée sur la clé.')}catch(e){showError(e)}}
+function saveEntry(){try{const amount=Number(document.getElementById('amount').value||0);if(!amount){toast('Entrez un montant.');return}const e={id:'op-'+Date.now()+'-'+Math.floor(Math.random()*100000),date:document.getElementById('date').value||today,type:document.getElementById('type').value,party:document.getElementById('party').value.trim(),amount,items:document.getElementById('items').value.trim(),note:document.getElementById('note').value.trim(),created:new Date().toISOString()};entries.push(e);persist();backupNow(false);toast('Opération enregistrée.');['amount','items','note','party'].forEach(i=>document.getElementById(i).value='');render()}catch(e){showError(e)}}
+function del(id){if(confirm('Supprimer ?')){entries=entries.filter(e=>e.id!==id);persist();backupNow(false);render()}}
+function dayEntries(){const d=document.getElementById('day').value;return entries.filter(e=>e.date===d).sort((a,b)=>(a.created||'').localeCompare(b.created||''))}
+function render(){try{const list=dayEntries(),q=document.getElementById('q').value.toLowerCase().trim();const shown=q?list.filter(e=>[e.party,e.items,e.note].join(' ').toLowerCase().includes(q)):list;let i=0,o=0;list.forEach(e=>e.type==='recette'?i+=+e.amount:o+=+e.amount);document.getElementById('tIn').textContent=fmt(i);document.getElementById('tOut').textContent=fmt(o);document.getElementById('tNet').textContent=fmt(i-o);document.getElementById('empty').style.display=shown.length?'none':'block';document.getElementById('rows').innerHTML=shown.map(e=>`<tr><td><span class="badge ${e.type==='recette'?'in':'out'}">${e.type==='recette'?'Recette':'Dépense'}</span></td><td><b>${e.party||'—'}</b></td><td>${(e.items||'—').replace(/\n/g,'<br>')}</td><td>${e.note||'—'}</td><td class="${e.type==='recette'?'amount-in':'amount-out'}" style="text-align:right">${e.type==='recette'?'+ ':'- '}${fmt(e.amount)}</td><td><button class="del" onclick="del('${e.id}')">✕</button></td></tr>`).join('')}catch(e){showError(e)}}
+function latin1(s){return Array.from(String(s??'')).map(c=>c.charCodeAt(0)>255?'?':c).join('')}
+function esc(s){return latin1(s).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)')}
+function wrap(t,m){const w=String(t||'').split(/\s+/),o=[];let l='';for(const x of w){const n=l?l+' '+x:x;if(n.length<=m)l=n;else{if(l)o.push(l);l=x}}if(l)o.push(l);return o.length?o:['']}
+function makePDF(list,from,to){
+ const W=595,H=842,M=40,fs=7.5,lh=10;
+ const cols=[{t:'N°',w:24},{t:'Date',w:58},{t:'Type',w:48},{t:'Client/Fournisseur',w:88},{t:'Articles et quantités',w:150},{t:'Note',w:78},{t:'Montant FCFA',w:63}];
+ const totalW=cols.reduce((a,c)=>a+c.w,0);
+ const pages=[];let page=[],y=H-150,pageNo=1;
+ const footer=()=>{page.push(['BT /F1 7.5 Tf 1 0 0 1 '+M+' 32 Td (SAMSTAR CORPORATE - Document genere automatiquement) Tj ET']);page.push(['BT /F1 7.5 Tf 1 0 0 1 '+(W-M-50)+' 32 Td (Page '+pageNo+') Tj ET'])};
+ const startPage=()=>{page=[];pageNo=pages.length+1;
+  page.push(['0 0.407 0.478 0.831 rg 0 '+(H-92)+' 595 92 re f 0 0 0 rg']);
+  page.push(['1 1 1 rg']);
+  page.push(['BT /F2 19 Tf 1 1 1 1 '+M+' '+(H-48)+' Td ('+esc(biz.name)+') Tj ET']);
+  const contact=[biz.address,biz.phone].filter(Boolean).join(' | ');
+  if(contact)page.push(['BT /F1 8 Tf 1 1 1 1 '+M+' '+(H-64)+' Td ('+esc(contact)+') Tj ET']);
+  page.push(['BT /F1 7.5 Tf 1 1 1 1 '+M+' '+(H-77)+' Td (Bureautique | Photocopie | Tirage | Saisie | E-commerce | Materiel informatique | Credit MTN, MOOV, Celtis) Tj ET']);
+  page.push(['0 0 0 rg']);
+  page.push(['BT /F2 11 Tf 1 0 0 1 '+M+' '+(H-118)+' Td (Rapport du '+from+' au '+to+') Tj ET']);
+  page.push(['BT /F1 8 Tf 1 0 0 1 '+(W-M-120)+' '+(H-118)+' Td (Edite le '+new Date().toLocaleDateString('fr-FR')+') Tj ET']);
+  y=H-150;
+ };
+ startPage();
+ const draw=(cells,bold,fill)=>{
+  const wr=cells.map((c,i)=>wrap(c,Math.floor(cols[i].w/(fs*.52))));
+  const n=Math.max(...wr.map(a=>a.length),1),h=Math.max(19,n*lh+8);
+  if(y-h<65){pages.push(page);startPage()}
+  if(fill==='head')page.push(['0 .72 .84 .91 rg '+M+' '+(y-h)+' '+totalW+' '+h+' re f 0 0 0 rg']);
+  else if(fill==='alt')page.push(['0 .95 .98 .99 rg '+M+' '+(y-h)+' '+totalW+' '+h+' re f 0 0 0 rg']);
+  else if(fill==='total')page.push(['0 .88 .97 .99 rg '+M+' '+(y-h)+' '+totalW+' '+h+' re f 0 0 0 rg']);
+  let x=M;cols.forEach((c,i)=>{
+   page.push(['0 .55 .78 .84 .87 RG 1 w '+x+' '+(y-h)+' '+c.w+' '+h+' re S']);
+   const right=(i===0||i===6);
+   wr[i].forEach((ln,j)=>{
+    let tx=x+5;
+    if(right){const approx=ln.length*fs*.5;tx=x+c.w-5-approx}
+    page.push(['BT /F'+(bold?2:1)+' '+fs+' Tf 1 0 0 1 '+tx+' '+(y-12-j*lh)+' Td ('+esc(ln)+') Tj ET'])
+   });x+=c.w});
+  y-=h;
+ };
+ draw(cols.map(c=>c.t),true,'head');
+ let ri=0,iT=0,oT=0;
+ list.forEach((e,idx)=>{e.type==='recette'?iT+=+e.amount:oT+=+e.amount;draw([++ri,e.date,e.type==='recette'?'Recette':'Depense',e.party||'-',e.items||'-',e.note||'-',Number(e.amount).toLocaleString('fr-FR')],false,idx%2?'alt':'')});
+ const tr=(a,b)=>draw(['','','','',a,'',b],true,'total');
+ tr('Total recettes',iT.toLocaleString('fr-FR'));tr('Total depenses',oT.toLocaleString('fr-FR'));tr('Solde',(iT-oT).toLocaleString('fr-FR'));
+ pages.push(page);
+ const objs=[];
+ objs.push('<< /Type /Catalog /Pages 2 0 R >>');
+ objs.push('PLACEHOLDER_PAGES');
+ objs.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+ objs.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+ const pageIds=[];
+ pages.forEach(p=>{const stream=p.map(l=>Array.isArray(l)?l.join(' '):l).join('\n');const contentId=objs.length+1;objs.push('<< /Length '+stream.length+' >>\nstream\n'+stream+'\nendstream');const pageId=objs.length+1;pageIds.push(pageId);objs.push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+contentId+' 0 R >>')});
+ objs[1]='<< /Type /Pages /Kids ['+pageIds.map(i=>i+' 0 R').join(' ')+'] /Count '+pageIds.length+' >>';
+ let pdf='%PDF-1.4\n';const offs=[];objs.forEach((o,i)=>{offs.push(pdf.length);pdf+=(i+1)+' 0 obj\n'+o+'\nendobj\n'});
+ const xref=pdf.length;pdf+='xref\n0 '+(objs.length+1)+'\n0000000000 65535 f \n'+offs.map(o=>String(o).padStart(10,'0')+' 00000 n \n').join('');
+ pdf+='trailer\n<< /Size '+(objs.length+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF';
+ const bytes=new Uint8Array(pdf.length);for(let i=0;i<pdf.length;i++)bytes[i]=pdf.charCodeAt(i)&255;
+ return new Blob([bytes],{type:'application/pdf'});
+}
+function showPDF(blob){if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(blob);document.getElementById('pdfFrame').src=pdfUrl;document.getElementById('pdfModal').classList.add('open')}
+function closePDF(){document.getElementById('pdfModal').classList.remove('open')}
+async function saveWithDialog(blob,name){if(window.showSaveFilePicker){try{const ext=name.split('.').pop();const h=await window.showSaveFilePicker({suggestedName:name,types:[{description:'Fichier',accept:{'application/octet-stream':['.'+ext]}}]});const w=await h.createWritable();await w.write(blob);await w.close();return true}catch(e){if(e&&e.name==='AbortError')return false}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();return true}
+async function exportPDF(){try{const from=document.getElementById('pdfFrom').value,to=document.getElementById('pdfTo').value;if(!from||!to){toast('Choisissez les deux dates.');return}if(from>to){toast('La date de début doit être avant la date de fin.');return}const list=entries.filter(e=>e.date>=from&&e.date<=to).sort((a,b)=>a.date.localeCompare(b.date)||(a.created||'').localeCompare(b.created||''));const blob=makePDF(list,from,to),name='SAMSTAR_'+from+'_au_'+to+'.pdf';showPDF(blob);if(usbDir){try{if(await usbDir.queryPermission({mode:'readwrite'})==='granted'){const exp=await usbDir.getDirectoryHandle('export',{create:true});const f=await exp.getFileHandle(name,{create:true});const w=await f.createWritable();await w.write(blob);await w.close();toast('PDF affiché et enregistré dans export/'+name);return}}catch(e){console.warn(e)}}await saveWithDialog(blob,name);toast('PDF affiché. Choisissez le dossier export si une fenêtre s’est ouverte.')}catch(e){showError(e)}}
+function importJSON(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);if(!Array.isArray(data))throw new Error('Format invalide');const ids=new Set(entries.map(e=>e.id));let n=0;data.forEach(e=>{if(e&&e.id&&!ids.has(e.id)){entries.push(e);n++}});persist();render();backupNow(false);toast(n+' opération(s) restaurée(s).')}catch(e){showError(e)}};r.readAsText(f);input.value=''}
+window.addEventListener('beforeunload',persist);render();
+</script>
+</body>
+</html>
